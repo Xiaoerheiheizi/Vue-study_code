@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>Vue</title>
 </head>
@@ -29,6 +30,23 @@
 			}}
 		</li>
 	</ol>
+</div>
+
+<div id="app-5">
+	<p>
+		{{message}}
+	</p>
+	<button v-on:click="reverseMessage">
+		反转消息
+	</button>
+</div>
+
+<!--   v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定    -->
+<div id="app-6">
+	<p>
+		{{message}}
+	</p>
+	<input v-model="message">
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -59,6 +77,23 @@ var app4 = new Vue({
 			{ text : '学习 Vue' },
 			{ text : '整个牛项目' },
 		]
+	}
+});
+var app5 = new Vue({
+	el      : '#app-5',
+	data    : {
+		message : 'Hello Vue.js!'
+	},
+	methods : {
+		reverseMessage : function() {
+			this.message = this.message.split('').reverse().join('')
+		}
+	}
+});
+var app6 = new Vue({
+	el      : '#app-6',
+	data    : {
+		message : 'Hello Vue.js!'
 	}
 });
 </script>
