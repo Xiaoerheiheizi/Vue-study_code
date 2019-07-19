@@ -3,25 +3,28 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Vue</title>
+	<title>Vue学习代码</title>
 </head>
 <body>
 <div id="app">
 	{{ message }}
 </div>
 
+<hr />
 <div id="app-2">
 	<span v-bind:title="message">
 		鼠标悬停几秒钟查看此处动态绑定的提示信息！
 	</span>
 </div>
 
+<hr />
 <div id="app-3">
 	<p v-if="seen">
 		现在你看到我了
 	</p>
 </div>
 
+<hr />
 <div id="app-4">
 	<ol>
 		<li v-for="todo in todos">
@@ -32,6 +35,7 @@
 	</ol>
 </div>
 
+<hr />
 <div id="app-5">
 	<p>
 		{{message}}
@@ -40,7 +44,7 @@
 		反转消息
 	</button>
 </div>
-
+<hr />
 <!--   v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定    -->
 <div id="app-6">
 	<p>
@@ -49,6 +53,7 @@
 	<input v-model="message">
 </div>
 
+<hr />
 <!--    组件     -->
 <div id="app-7">
 	<ol>
@@ -60,6 +65,18 @@
 	</ol>
 </div>
 
+<hr />
+<div id="app-8">
+	<p>{{foo}}</p>
+	<button v-on:click="foo = 'baz'">Change it</button>
+</div>
+
+<hr />
+<!--   计算属性    -->
+<div id="computed">
+	<p>Original message: "{{ message }}"</p>
+	<p>Computed reversed message: "{{ reversedMessage }}"</p>
+</div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -112,7 +129,7 @@ var app6 = new Vue({
 
 Vue.component('todo-item', {
 	props    : ['todo'],
-	template : '<li>{{todo.text}}</li>>'
+	template : '<li>{{todo.text}}</li>'
 });
 
 var app7 = new Vue({
@@ -125,5 +142,28 @@ var app7 = new Vue({
 		]
 	}
 });
+
+
+var obj = {
+	foo : 'bar'
+};
+Object.freeze(obj);
+new Vue({
+	el   : '#app-8',
+	data : obj
+});
+
+var computed = new Vue({
+	el       : '#computed',
+	data     : {
+		message : 'Hello'
+	},
+	computed : {
+		// 计算属性的getter
+		reversedMessage : function() {
+			return this.message.split('').reverse().join('')
+		}
+	}
+})
 </script>
 </html>
