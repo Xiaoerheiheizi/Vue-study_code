@@ -78,6 +78,12 @@
 	<p>Computed reversed message: "{{ reversedMessage }}"</p>
 </div>
 
+<hr />
+<!--    侦听属性    -->
+<div id="watch">
+	{{fullName}}
+</div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
@@ -143,7 +149,6 @@ var app7 = new Vue({
 	}
 });
 
-
 var obj = {
 	foo : 'bar'
 };
@@ -153,6 +158,7 @@ new Vue({
 	data : obj
 });
 
+// 计算属性是基于它们的响应式依赖进行缓存的
 var computed = new Vue({
 	el       : '#computed',
 	data     : {
@@ -161,7 +167,26 @@ var computed = new Vue({
 	computed : {
 		// 计算属性的getter
 		reversedMessage : function() {
-			return this.message.split('').reverse().join('')
+			// return this.message.split('').reverse().join('')
+			return Date.now()
+		}
+	}
+});
+
+// 侦听属性
+var watch = new Vue({
+	el    : '#watch',
+	data  : {
+		firstName : 'Foo',
+		lastName  : 'Bar',
+		fullName  : 'Foo Bar'
+	},
+	watch : {
+		firstName : function(val) {
+			this.fullName = val + ' ' + this.lastName
+		},
+		lastName  : function(val) {
+			this.fullName = this.firstName + ' ' + val
 		}
 	}
 })
