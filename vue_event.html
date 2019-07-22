@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Vue 事件学习代码</title>
+</head>
+<body>
+<div id="example-1">
+	<button v-on:click="counter += 1">Add 1</button>
+	<p>The button above has been clicked {{ counter }} times.</p>
+</div>
+
+<hr />
+
+<div id="example-2">
+	<button v-on:click="greet">Greet</button>
+</div>
+
+<hr />
+
+<div id="example-3">
+	<button v-on:click="say('hi',$event)">Say hi</button>
+	<button v-on:click="say('what')">Say what</button>
+</div>
+
+<hr />
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+var example1 = new Vue({
+	el   : '#example-1',
+	data : {
+		counter : 0
+	}
+});
+
+var example2 = new Vue({
+	el      : '#example-2',
+	data    : {
+		name : 'Vue.js'
+	},
+	methods : {
+		greet : function(event) {
+			alert('Hello ' + this.name + '!');
+			if (event) {
+				alert(event.target.tagName)
+			}
+		}
+	}
+});
+
+var example3 = new Vue({
+	el      : '#example-3',
+	methods : {
+		say : function(message, event) {
+			if (event) {
+				console.log(event);
+			}
+			alert(message);
+		}
+	}
+});
+</script>
+</body>
+</html>
