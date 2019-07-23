@@ -1,4 +1,4 @@
-# syl-app
+# vue-syl-app
 
 > A Vue.js project
 
