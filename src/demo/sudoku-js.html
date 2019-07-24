@@ -7,7 +7,7 @@
     <title>九宫格 js实现颜色随机变换</title>
     <!-- 引入 vue.js -->
     <script src="https://labfile.oss.aliyuncs.com/courses/1262/vue.min.js"></script>
-    <!--    <script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.min.js"></script>-->
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.min.js"></script>
     <style>
         .grid {
             padding               : 10px;
@@ -43,7 +43,7 @@
 <body>
 <div id="app">
     <div class="grid">
-        <div v-for="item in sudoku" :key="item"></div>
+        <div v-for="item in sudoku" :key="item" :style="styleObject(item)"></div>
     </div>
     
     <div class="btn" :class="{active:start}" @click="highlight('start')">
@@ -62,11 +62,29 @@ var app = new Vue({
         sudoku: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         start : false,
         end   : false,
+        origin: '0123456789abcdef',
+        random: _.sampleSize([1, 2, 3, 4, 5, 6, 7, 8, 9], 3),
+        time  : 8,
     },
     methods: {
-        highlight: function (btn) {
+        styleObject: function (index) {
+            let boole = _.includes(this.random, index)
+            let color = '#' + (_.sampleSize(this.origin, 6)).join('')
+            return {
+                background: (this.start && boole) ? color : ''
+            }
+        },
+        highlight  : function (btn) {
             this.start = btn === 'start'
             this.end = btn === 'end'
+            if (btn === 'start') {
+                this.time = setInterval(() => {
+                    this.random = _.sampleSize([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)
+                    this.$forceUpdate()
+                }, 1000)
+            } else {
+                clearInterval(this.time)
+            }
         }
     }
 })
