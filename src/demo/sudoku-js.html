@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>九宫格 js实现颜色随机变换</title>
+    <!-- 引入 vue.js -->
+    <script src="https://labfile.oss.aliyuncs.com/courses/1262/vue.min.js"></script>
+    <!--    <script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.min.js"></script>-->
+    <style>
+        .grid {
+            padding               : 10px;
+            display               : grid;
+            grid-template-columns : repeat(3, 22vw);
+            grid-template-rows    : repeat(3, 22vh);
+            grid-row-gap          : 3vh;
+            grid-column-gap       : 3vw;
+            justify-content       : space-around;
+        }
+        .grid div {
+            background-color : #ffa600;
+            border-radius    : 20px;
+        }
+        .btn {
+            width         : 80%;
+            text-align    : center;
+            font-size     : 15px;
+            border        : 1px solid #ffa600;
+            margin        : 20px auto 0;
+            height        : 40px;
+            line-height   : 40px;
+            color         : #ffa600;
+            border-radius : 5px;
+            outline       : none;
+        }
+        .active {
+            background-color : #ffa600;
+            color            : #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="grid">
+        <div v-for="item in sudoku" :key="item"></div>
+    </div>
+    
+    <div class="btn" :class="{active:start}" @click="highlight('start')">
+        开始闪
+    </div>
+    
+    <div class="btn" :class="{active:end}" @click="highlight('end')">
+        结束闪
+    </div>
+</div>
+
+<script>
+var app = new Vue({
+    el     : '#app',
+    data   : {
+        sudoku: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        start : false,
+        end   : false,
+    },
+    methods: {
+        highlight: function (btn) {
+            this.start = btn === 'start'
+            this.end = btn === 'end'
+        }
+    }
+})
+</script>
+</body>
+</html>
