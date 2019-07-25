@@ -13,7 +13,26 @@
         .fade-enter, .fade-leave-to {
             opacity : 0;
         }
+        
+        .bounce-enter-active {
+            animation : bounce-in .5s;
+        }
+        .bounce-leave-active {
+            animation : bounce-in .5s reverse;
+        }
+        @keyframes bounce-in {
+            0% {
+                transform : scale(0);
+            }
+            50% {
+                transform : scale(1.5);
+            }
+            100% {
+                transform : scale(1);
+            }
+        }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -26,14 +45,30 @@
             hello syl
         </p>
     </transition>
+    
+    <transition name="bounce">
+        <p v-if="show">
+            hello syl hello syl hello syl
+        </p>
+    </transition>
+    
+    <!-- 自定义过渡的类名  animate.css动画库的类名 -->
+    <transition
+            name="custom-classes-transition"
+            enter-active-class="animated tada"
+            leave-active-class="animated bounceOutRight">
+        <p v-if="show">
+            hello
+        </p>
+    </transition>
 </div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 var app = new Vue({
-    el: '#app',
-    data () {
+    el  : '#app',
+    data: function () {
         return {
             show: true
         }
