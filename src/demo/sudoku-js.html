@@ -64,7 +64,7 @@ var app = new Vue({
         end   : false,
         origin: '0123456789abcdef',
         random: _.sampleSize([1, 2, 3, 4, 5, 6, 7, 8, 9], 3),
-        time  : 8,
+        time  : false,
     },
     methods: {
         styleObject: function (index) {
@@ -77,12 +77,12 @@ var app = new Vue({
         highlight  : function (btn) {
             this.start = btn === 'start'
             this.end = btn === 'end'
-            if (btn === 'start') {
+            if (btn === 'start' && !this.time) {
                 this.time = setInterval(() => {
                     this.random = _.sampleSize([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)
                     this.$forceUpdate()
                 }, 1000)
-            } else {
+            } else if (btn === 'end') {
                 clearInterval(this.time)
             }
         }
