@@ -17,7 +17,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 var app = new Vue({
-    el     : 'app',
+    el     : '#app',
     data () {
         return {
             name: 'syl'
@@ -47,10 +47,10 @@ var app = new Vue({
         console.log('组件 DOM 已经更新')
     },
     beforDestroy () {
-    
+        console.log('组件销毁前调用')
     },
     destroyed () {
-    
+        console.log('组件销毁时调用')
     }
 })
 </script>
