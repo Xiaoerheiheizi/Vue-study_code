@@ -12,8 +12,8 @@
         .grid {
             padding               : 10px;
             display               : grid;
-            grid-template-columns : repeat(3, 22vw);
-            grid-template-rows    : repeat(3, 22vh);
+            grid-template-columns : repeat(3, 12vw);
+            grid-template-rows    : repeat(3, 12vw);
             grid-row-gap          : 3vh;
             grid-column-gap       : 3vw;
             justify-content       : space-around;
@@ -84,6 +84,7 @@ var app = new Vue({
                 }, 1000)
             } else if (btn === 'end') {
                 clearInterval(this.time)
+                this.time = false
             }
         }
     }
