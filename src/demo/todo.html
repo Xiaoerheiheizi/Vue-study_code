@@ -8,6 +8,9 @@
 		.completed {
 			text-decoration : line-through;
 		}
+		strong {
+			color : red;
+		}
 	</style>
 </head>
 <body>
@@ -15,17 +18,27 @@
 <!--  ================   自定义组件 使用 v-model  ==============  -->
 <div id="todo">
 	<task-app :list="tasks"></task-app>
-	<task-app :list="[{completed:true,title:'安gas的姐姐啊'}]"></task-app>
 </div>
 
 <template id="task-template">
-	<ul>
-		<li @click="toggleTasks(task)"
-		    :class="{'completed':task.completed}"
-		    v-for="task in list">
-			{{task.title}}
-		</li>
-	</ul>
+	<div>
+		<h1>
+			My tasks
+			<span v-show="remaining">
+				({{remaining}})
+			</span>
+		</h1>
+		<ul>
+			<li @click="toggleTasks(task)"
+			    :class="{'completed':task.completed}"
+			    v-for="(task,index) in list">
+				{{task.title}}
+				<strong @click="deleteTasks(index)">
+					X
+				</strong>
+			</li>
+		</ul>
+	</div>
 </template>
 
 </body>
@@ -41,11 +54,22 @@ Vue.component('task-app', {
 		toggleTasks : function(task) {
 			console.log('>>>>>>>>>>>>>>>');
 			task.completed = !task.completed;
+		},
+		deleteTasks : function(index) {
+			console.log(index);
+			this.list.splice(index, 1);
 		}
+	},
+	computed : {
+		remaining : function() {
+			return this.list.filter(function(task) {
+				return !task.completed
+			}).length;
+		},
 	}
 });
 
-new Vue({
+let vm = new Vue({
 	el   : '#todo',
 	data : {
 		tasks : [
