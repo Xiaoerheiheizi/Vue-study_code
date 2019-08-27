@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>待办事项</title>
+	<style>
+		.completed {
+			text-decoration : line-through;
+		}
+	</style>
+</head>
+<body>
+
+<!--  ================   自定义组件 使用 v-model  ==============  -->
+<div id="todo">
+	<task-app :list="tasks"></task-app>
+	<task-app :list="[{completed:true,title:'安gas的姐姐啊'}]"></task-app>
+</div>
+
+<template id="task-template">
+	<ul>
+		<li @click="toggleTasks(task)"
+		    :class="{'completed':task.completed}"
+		    v-for="task in list">
+			{{task.title}}
+		</li>
+	</ul>
+</template>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+Vue.component('task-app', {
+	template : '#task-template',
+	props    : [
+		'list'
+	],
+	methods  : {
+		toggleTasks : function(task) {
+			console.log('>>>>>>>>>>>>>>>');
+			task.completed = !task.completed;
+		}
+	}
+});
+
+new Vue({
+	el   : '#todo',
+	data : {
+		tasks : [
+			{ completed : false, title : 'My journey with Vue' },
+			{ completed : true, title : 'Blogging with Vue' },
+			{ completed : false, title : 'Why Vue is so fun' }
+		]
+	},
+});
+
+</script>
+</html>
