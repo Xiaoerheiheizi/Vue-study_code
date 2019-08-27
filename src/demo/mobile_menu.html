@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>移动端菜单实现</title>
+    <style>
+        * {
+            padding : 0;
+            margin  : 0;
+        }
+        
+        a {
+            text-decoration : none;
+        }
+        
+        ul {
+            list-style : none;
+        }
+        
+        nav {
+            position      : absolute;
+            top           : 0;
+            left          : 0;
+            bottom        : 0;
+            right         : 0;
+            margin        : auto;
+            list-style    : none;
+            width         : 175px;
+            height        : 367px;
+            border        : 1px solid #000000;
+            border-radius : 10px;
+            overflow      : hidden;
+        }
+        
+        nav .nav-header {
+            height                  : 40px;
+            background              : #3469cc;
+            border-top-right-radius : 10px;
+            border-top-left-radius  : 10px;
+            display                 : flex;
+            flex-direction          : column;
+            transition              : all .5s;
+        }
+        
+        .line1, .line2, .line3 {
+            width      : 20px;
+            height     : 1px;
+            background : black;
+            margin     : 5px 10px;
+            align-self : flex-end;
+            transition : all .5s;
+        }
+        
+        nav ul {
+            display         : flex;
+            flex-direction  : column;
+            justify-content : center;
+            align-items     : center;
+        }
+        
+        nav ul li {
+            width      : 100%;
+            padding    : 10px 0;
+            text-align : center;
+        }
+        
+        .bounce-enter-active {
+            animation : bounce-in .5s;
+        }
+        
+        .bounce-leave-active {
+            animation : bounce-in .5s reverse;
+        }
+        
+        @keyframes bounce-in {
+            0% {
+                transform : translateX(300px);
+            }
+            
+            100% {
+                transform : translateX(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <nav>
+        <div class="nav-header" @click="show=!show" :class="{acrive:show}">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <transition name="bounce">
+            <ul v-if="show">
+                <li v-for="nav in navbar" :key="nav">
+                    {{nav}}
+                </li>
+            </ul>
+        </transition>
+    </nav>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+var app = new Vue({
+    el: '#app',
+    data () {
+        return {
+            navbar: ['HOME', 'CONTACT', 'ABOUT', 'INFO'],
+            show  : false,
+        }
+    }
+})
+</script>
+</html>
